@@ -1,8 +1,7 @@
 package gov.va.bip.secretmgmt;
 
 import gov.va.bip.secretmgmt.config.SwaggerConfig;
-import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
-import io.swagger.v3.oas.integration.OpenApiConfigurationException;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -21,6 +20,7 @@ public class Application {
         ResourceConfig config = new ResourceConfig();
         config.packages("gov.va.bip.secretmgmt.controller");
         config.register(JacksonFeature.class);
+        config.register(OpenApiResource.class);
         config.register(SwaggerConfig.class);
 
         ServletHolder servlet = new ServletHolder(new ServletContainer(config));
@@ -28,14 +28,6 @@ public class Application {
         Server server = new Server(8080);
         ServletContextHandler context = new ServletContextHandler(server, "/*");
         context.addServlet(servlet, "/*");
-
-        try {
-            new JaxrsOpenApiContextBuilder<>()
-                    .application(new SwaggerConfig())
-                    .buildContext(true);
-        } catch (OpenApiConfigurationException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
 
         try {
             logger.info("Starting the server...");

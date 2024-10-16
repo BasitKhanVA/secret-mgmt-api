@@ -45,19 +45,6 @@ mvn exec:java -Dexec.mainClass="gov.va.bip.secretmgmt.Application"
 
 The application will start and listen on `http://localhost:8080`.
 
-## API Endpoints
-
-1. Health Check
-    - URL: `GET /health`
-    - Response: `{"status": "UP"}`
-
-2. Get Secret
-    - URL: `GET /secrets/{key}`
-    - Response:
-        - 200 OK: `{"key": "secretKey", "value": "secretValue"}`
-        - 404 Not Found: `{"error": "Secret not found"}`
-
-
 ## Testing the Application
 
 For QA testing, follow these steps:
@@ -81,3 +68,8 @@ For QA testing, follow these steps:
    curl http://localhost:8080/secrets/nonexistentKey
    ```
    Expected response: `{"error": "Secret not found"}` with a 404 status code
+
+5. Verify Swagger documentation:
+
+    - Open `http://localhost:8080/openapi.json` in a browser
+    - Confirm that the JSON content describes the API endpoints
