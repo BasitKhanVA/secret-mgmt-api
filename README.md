@@ -56,15 +56,6 @@ The application will start and listen on `http://localhost:8080`.
         - 200 OK: `{"key": "secretKey", "value": "secretValue"}`
         - 404 Not Found: `{"error": "Secret not found"}`
 
-## Swagger Documentation
-
-Swagger documentation is available at:
-
-```
-http://localhost:8080/openapi.json
-```
-
-You can view the Swagger UI by copying the content of this JSON and pasting it into the Swagger Editor at https://editor.swagger.io/.
 
 ## Testing the Application
 
@@ -82,30 +73,10 @@ For QA testing, follow these steps:
    ```
    curl http://localhost:8080/secrets/dummyKey
    ```
-   Expected response: `{"key":"dummyKey","value":"dummyValue"}`
+   Expected response: `{"key":"test-key","value":"test-value"}`
 
 4. Test retrieving a non-existent secret:
    ```
    curl http://localhost:8080/secrets/nonexistentKey
    ```
    Expected response: `{"error": "Secret not found"}` with a 404 status code
-
-5. Verify Swagger documentation:
-    - Open `http://localhost:8080/openapi.json` in a browser
-    - Confirm that the JSON content describes the API endpoints
-
-6. Test with different environment variables:
-    - Stop the application
-    - Change the `VAULT_ADDR`, `VAULT_TOKEN`, or `VAULT_SECRET_PATH` environment variables
-    - Restart the application and confirm it logs the new values (with token redacted)
-
-7. Confirm JSON responses:
-    - All responses should be in JSON format
-    - Check the `Content-Type` header in responses is `application/json`
-
-Note: The current implementation uses dummy data for secrets. Integration with an actual Vault instance is pending.
-
-## Known Limitations
-
-- The application is not yet fully prepared for cloud deployment.
-- Actual integration with HashiCorp Vault is not implemented; the application currently returns dummy data.
