@@ -32,6 +32,7 @@ Before running the application, set the following environment variables:
 export VAULT_ADDR="http://127.0.0.1:8200"
 export VAULT_TOKEN="your-vault-token"
 export VAULT_SECRET_PATH="secret/data/myapp"
+vault kv put secret/data/myapp test-key="test-value"
 ```
 
 Replace `your-vault-token` with your actual Vault token.
@@ -71,7 +72,7 @@ For QA testing, follow these steps:
 
 3. Test retrieving an existing secret:
    ```
-   curl http://localhost:8080/secrets/dummyKey
+   curl http://localhost:8080/secrets/test-key
    ```
    Expected response: `{"key":"test-key","value":"test-value"}`
 
